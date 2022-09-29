@@ -1,0 +1,76 @@
+# common config
+save_path: "../../experiments/PMF-SemanticKitti/"
+seed: 1
+gpu: "3"
+print_frequency: 2
+n_threads: 4
+experiment_id: "baseline_20220928"
+
+# data conifg
+val_only: false
+has_label: true
+is_debug: false
+n_epochs: 50
+batch_size: [2, 4]
+lr: 0.001
+warmup_epochs: 1
+momentum: 0.9
+weight_decay: 0.00001
+val_frequency: 1
+
+dataset: "SemanticKitti"
+nclasses: 20 # 19+1(ignored)
+data_root: "/mnt/cephfs/dataset/semantic-kitti-fov/sequences/"
+
+base_channels: 32
+img_backbone: "resnet34"
+imagenet_pretrained: true
+use_downscale: true
+
+lambda: 1.0 # weight of lovasz-softmax loss
+gamma: 0.5 # weight of perception-aware loss
+tau: 0.7 # confidence threshold
+
+# cehckpoint model
+checkpoint: null
+pretrained_model: null 
+
+### data augmentation config ---------------------
+PVconfig: 
+  name: "Perspective View Projection"
+  img_jitter : [ 0.4, 0.4, 0.4 ]
+  # size of validation/test samples
+  proj_h: 768
+  proj_w: 1952
+
+  # size of training samples
+  proj_ht: 512
+  proj_wt: 1536
+
+  # rotation angle of pointcloud
+  rotation_angle: [0] # [0, 90, 180, 270]
+  # fov angles
+  fov_left: -45.
+  fov_right: 45.
+  
+  pcd_mean:
+    - 12.12
+    - 10.88
+    - 0.23
+    - -1.04
+    - 0.21
+  pcd_stds:
+    - 12.32
+    - 11.47
+    - 6.91
+    - 0.86
+    - 0.16  
+
+post:
+  KNN:
+    use: false # This parameter default is false
+    params:
+      knn: 5
+      search: 5
+      sigma: 1.0
+      cutoff: 1.0
