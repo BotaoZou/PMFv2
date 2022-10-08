@@ -20,7 +20,7 @@ val_frequency: 1
 
 dataset: "SemanticKitti"
 nclasses: 20 # 19+1(ignored)
-data_root: "/mnt/cephfs/dataset/semantic-kitti-fov/sequences/"
+data_root: "/mnt/cephfs/dataset/semantic-kitti/dataset/sequences/"
 
 base_channels: 32
 img_backbone: "resnet34"
